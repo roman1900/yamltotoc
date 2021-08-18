@@ -18,7 +18,7 @@ namespace yamltotoc
             var mdfiles = Directory.GetFiles(".","*.md");
             foreach (string doc in mdfiles)
             {
-                if (doc != ".\readme.md") { //we will output the readme.md
+                if (doc != @".\readme.md") { //we will output the readme.md
                     var content = File.ReadAllLines(doc);
                     string yaml = "";
                     if (content[0].Replace(" ","")  == "---") { //yaml content in doc
