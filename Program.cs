@@ -41,6 +41,16 @@ namespace yamltotoc
                             case "--output":
                                 currentArg = parameters.output;
                                 break;
+                            case "-h":
+                            case "--help":
+                                Console.WriteLine("Usage: yamltotoc.exe [options]");
+                                Console.WriteLine(" options:");
+                                Console.WriteLine("     -a, --append                   Append the TOC to the end of the output file. Without append the output file is overwritten");
+                                Console.WriteLine("     -h, --help                     Print this help message");
+                                Console.WriteLine("     -o, --output {filename}        Provide the file name to output the TOC. Defaults to readme.md");
+                                Console.WriteLine("     -p, --path {directory path}    Provide the path to documents to create the TOC from");
+                                Environment.Exit(0);
+                                break;
                             default:
                                 throw(new System.Exception($"Unknown parameter supplied {arg}"));
                         } 
