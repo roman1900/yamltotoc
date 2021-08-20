@@ -43,12 +43,13 @@ namespace yamltotoc
                                 break;
                             case "-h":
                             case "--help":
+                                Console.WriteLine("YAMLtoTOC is a table of contents generator for markdown documents");
                                 Console.WriteLine("Usage: yamltotoc.exe [options]");
                                 Console.WriteLine(" options:");
-                                Console.WriteLine("     -a, --append                   Append the TOC to the end of the output file. Without append the output file is overwritten");
+                                Console.WriteLine("     -a, --append                   Append the TOC to the end of the output file. Caution without append the output file is overwritten");
                                 Console.WriteLine("     -h, --help                     Print this help message");
                                 Console.WriteLine("     -o, --output {filename}        Provide the file name to output the TOC. Defaults to readme.md");
-                                Console.WriteLine("     -p, --path {directory path}    Provide the path to documents to create the TOC from");
+                                Console.WriteLine("     -p, --path {directory path}    Provide the path to the markdown files to create the TOC from. Defaults to the current directory");
                                 Environment.Exit(0);
                                 break;
                             default:
