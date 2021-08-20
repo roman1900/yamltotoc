@@ -11,12 +11,14 @@ namespace yamltotoc
         enum parameters {
             append,
             output,
+            path,
             undefined
         }
         static void Main(string[] args)
         {
             bool append = false;
             string output = "readme.md";
+            string path = @".\";
             parameters currentArg = parameters.undefined;
             if (args.Length >0)
             {
@@ -30,6 +32,10 @@ namespace yamltotoc
                             case "-a":
                             case "--append":
                                 append = true;
+                                break;
+                            case "-p":
+                            case "--path":
+                                currentArg = parameters.path;
                                 break;
                             case "-o":
                             case "--output":
@@ -48,6 +54,9 @@ namespace yamltotoc
                             case parameters.output:
                                 output = arg;
                                 break;
+                            case parameters.path:
+                                path = arg;
+                                break;
                             case parameters.undefined:
                             default:
                                 throw(new System.Exception($"Unknown bare word parameter supplied {arg} are you missing a switch?"));
@@ -60,11 +69,10 @@ namespace yamltotoc
                 .IgnoreUnmatchedProperties()
                 .Build();
             List<Document> documents = new List<Document>();
-            //TODO: #1 Implement command line parameters to specify directories to process
-            var mdfiles = Directory.GetFiles(".","*.md");
+            var mdfiles = Directory.GetFiles(path,"*.md");
             foreach (string doc in mdfiles)
             {
-                if (doc != @".\"+output) { //do not include the output file
+                if (doc != path+output) { //do not include the output file
                     var content = File.ReadAllLines(doc);
                     string yaml = "";
                     if (content[0].Replace(" ","")  == "---") { //yaml content in doc
@@ -91,11 +99,10 @@ namespace yamltotoc
                     toc += $"|[{d.title}]({d.docpath})|{d.shortdescription}|"
                             + System.Environment.NewLine;
                 }
-                //TODO: #2 Implement command line parameter for alternate output file
                 if (append)
-                    File.AppendAllText(output,toc);
+                    File.AppendAllText(Path.Combine(path,output),toc);
                 else
-                    File.WriteAllText(output,toc);
+                    File.WriteAllText(Path.Combine(path,output),toc);
             }
         }   
             
